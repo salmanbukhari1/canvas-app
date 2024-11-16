@@ -28,14 +28,18 @@ jobs:
         service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
         export_default_credentials: true
 
-    - name: Authenticate Firebase CLI
-      run: firebase login:ci --no-localhost
+    - name: Authenticate Firebase CLI with Service Account
+      run: firebase use --add canvas-app-production
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - name: Set Firebase Functions Config
       run: firebase functions:config:set google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest" --project canvas-app-production
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - name: Deploy Functions
       working-directory: backend/functions
       run: firebase deploy --only functions --project canvas-app-production
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
