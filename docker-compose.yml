@@ -1,0 +1,34 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000' #port for front end app to be accesible
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Avoid overwriting node_modules in container
+      - ./keys/firebase/serviceAccountKey.json:/app/serviceAccountKey.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/serviceAccountKey.json
+    env_file:
+      - ./frontend/.env
+      
+    command: npm run dev
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '5001:5001' # port for emulated serverless functions
+      - '4000:4000' # Interface for managing different localised firebase services
+    volumes:
+      - ./backend:/app
+      - /app/node_modules  # Avoid overwriting node_modules in container
+      - ./backend/firebase.json:/app/firebase.json
+      - ./keys/firebase/serviceAccountKey.json:/app/serviceAccountKey.json
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/serviceAccountKey.json
+      - FIREBASE_PROJECT_ID=canvas-app-d8547  # Set Firebase project ID
+      
+    command: npm run start 
