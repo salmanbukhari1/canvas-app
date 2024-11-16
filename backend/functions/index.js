@@ -2,6 +2,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 
+// Initialise admin app
 admin.initializeApp();
 
 const checkAuth = async (req, res, next) => {
