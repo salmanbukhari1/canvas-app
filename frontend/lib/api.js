@@ -1,3 +1,20 @@
+function getBaseUrl(withinService=false) {
+    const isLocal = process.env.NODE_ENV === "development";
+    let appId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+    const region = process.env.NEXT_PUBLIC_REGION;
+  
+    if (isLocal) {
+        return withinService ? `http://backend:5001/${appId}/${region}` : `http://localhost:5001/${appId}/${region}`;
+    } else {
+        return `https://${region}-${appId}.cloudfunctions.net`;
+    }
+}
+
+function getFullUrl(endpoint, withinService) {
+    const baseUrl = getBaseUrl(withinService);
+    return `${baseUrl}/${endpoint}`;
+}
+
 /**
  * Fetches multiple drawings for a user by calling a Firebase Cloud Function.
  *
@@ -16,9 +33,17 @@
  * console.log(drawings);
  */
 export async function getMultipleUserDrawings(token) {
+
+    // http://localhost:5001/canvas-app-d8547/us-central1/getMultipleDrawings
+    // https://us-central1-canvas-app-production.cloudfunctions.net/getMultipleDrawings
+    
     try {
+
+        const requestUrl = getFullUrl("getMultipleDrawings", true);
+        console.log("request_url: ", requestUrl);
+        console.log("checking_environment_variables: ", process.env.NODE_ENV)
         // Call the Cloud Function API with the Firebase ID token
-        const res = await fetch('http://backend:5001/canvas-app-d8547/us-central1/getMultipleDrawings', {
+        const res = await fetch(requestUrl, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -66,8 +91,10 @@ export async function getMultipleUserDrawings(token) {
 export async function getUserDrawing(token, drawingId) {
 
     try {
+
+        const requestUrl = getFullUrl("getUserDrawing", true);
         // Call the Cloud Function API with the Firebase ID token
-        const res = await fetch('http://backend:5001/canvas-app-d8547/us-central1/getUserDrawing?drawingId='+drawingId, {
+        const res = await fetch(`${requestUrl}?drawingId=${drawingId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -97,8 +124,10 @@ export async function getUserDrawing(token, drawingId) {
 export async function saveUserDrawing(token, drawingData, drawingId=null) {
 
     try {
+
+        const requestUrl = getFullUrl("saveUserDrawing");
         // Call the Cloud Function API with the Firebase ID token
-        const res = await fetch('https://us-central1-canvas-app-production.cloudfunctions.net/saveUserDrawing', {
+        const res = await fetch(requestUrl, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
