@@ -1,0 +1,48 @@
+/* components/Header.module.css */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .logoImage {
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+  
+  .companyName {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .navButton:hover {
+    background-color: #0056b3;
+  }
+  

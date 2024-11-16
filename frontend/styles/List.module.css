@@ -1,0 +1,61 @@
+/* Basic reset and layout setup */
+
+/* UL: Grid container setup */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* List item: Individual grid item styling */
+.gridItem {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    padding: 20px;
+    text-align: center;
+}
+
+.gridItem:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.gridImage {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gridItem:hover .gridImage {
+    transform: scale(1.05);
+}
+
+/* Content styling */
+.gridContent {
+    padding: 15px;
+}
+
+.gridTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0;
+}
+
+.gridDescription {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.4;
+}
