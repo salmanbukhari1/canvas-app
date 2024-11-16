@@ -4,7 +4,6 @@ const admin = require("firebase-admin");
 
 admin.initializeApp();
 
-// check auth
 const checkAuth = async (req, res, next) => {
   try {
     // Get the Firebase ID token from the request's Authorization header
