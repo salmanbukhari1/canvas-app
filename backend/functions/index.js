@@ -1,9 +1,18 @@
 // backend/functions/index.js
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const cors = require('cors');
+
+const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
 
 admin.initializeApp();
 
+// CORS configuration to allow specific origin (e.g., Vercel or other domains)
+const corsOptions = {
+  origin: isEmulator ? '*' : 'https://canvas-app-besx.vercel.app', // frontend URL
+  methods: ['GET', 'POST'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
 
 const checkAuth = async (req, res, next) => {
   try {
@@ -130,6 +139,17 @@ const saveUserDrawing = async (req, res) => {
 
 // Cloud Function to handle the request with middleware
 exports.saveUserDrawing = functions.https.onRequest((req, res) => {
+  // allows cors from our front end
+  cors(corsOptions)(req, res, () => {
+    // Handle the actual request logic here
+    if (req.method === 'OPTIONS') {
+      // Handle pre-flight requests for CORS
+      res.status(204).send('');
+    } else {
+      // Function logic for saving the drawing
+      res.status(200).send("Drawing saved successfully!");
+    }
+  });
   // Apply the authentication middleware
   checkAuth(req, res, () => {
     // Proceed to get the user drawings once authenticated
