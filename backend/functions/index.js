@@ -122,9 +122,9 @@ const saveUserDrawing = async (req, res) => {
 
     return res.status(200).json({'success': true});
 
-  } catch (e) {
-    console.error("Error saving drawing:", e);
-    return res.status(500).json({ error: e });
+  } catch (error) {
+    console.error("Error saving drawing:", error);
+    return res.status(500).json({ error: error });
   }
 };
 
