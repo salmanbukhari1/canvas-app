@@ -3,7 +3,7 @@ name: Deploy Firebase Functions
 on:
   push:
     paths:
-      - 'backend/**'  # Trigger for changes in backend directory
+      - 'backend/**'  # Trigger for changes in the backend directory
 
 jobs:
   deploy:
@@ -24,6 +24,7 @@ jobs:
     - name: Create Service Account JSON file
       run: |
         echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_CONTENT }}" > $HOME/service-account.json
+        cat $HOME/service-account.json  # To check if the file was created properly
         export GOOGLE_APPLICATION_CREDENTIALS=$HOME/service-account.json
         gcloud auth activate-service-account --key-file=$HOME/service-account.json
         firebase projects:list --project canvas-app-production
