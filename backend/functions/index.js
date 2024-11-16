@@ -4,12 +4,13 @@ const admin = require("firebase-admin");
 const cors = require('cors');
 
 const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+const frontEndUrl = 'https://canvas-app-besx.vercel.app'
 
 admin.initializeApp();
 
 // CORS configuration to allow specific origin (e.g., Vercel or other domains)
 const corsOptions = {
-  origin: isEmulator ? '*' : 'https://canvas-app-besx.vercel.app', // frontend URL
+  origin: isEmulator ? '*' : frontEndUrl, // frontend URL
   methods: ['GET', 'POST'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 };
