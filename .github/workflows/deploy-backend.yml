@@ -23,8 +23,7 @@ jobs:
 
     - name: Write Service Account JSON to File
       run: |
-        printf '%s' "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > $HOME/service-account.json
-
+        echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | base64 -d > $HOME/service-account.json
 
     - name: Verify Service Account File Exists
       run: ls -l $HOME/service-account.json
