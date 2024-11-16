@@ -1,0 +1,43 @@
+/* ErrorNotification.module.css */
+.errorNotification {
+    position: fixed;
+    top: 20px;                /* Distance from the top of the viewport */
+    right: 20px;              /* Distance from the right edge of the viewport */
+    background-color: #f44336; /* Red background to signify an error */
+    color: white;             /* White text color for contrast */
+    padding: 10px 20px;       /* Padding inside the box */
+    border-radius: 8px;       /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a floating effect */
+    display: flex;
+    align-items: center;      /* Vertically center the message and close button */
+    justify-content: space-between; /* Space between the message and the close button */
+    z-index: 9999;            /* Ensure it stays above other content */
+    animation: fadeIn 0.5s ease-out; /* Animation for smooth appearance */
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    font-weight: bold;
+  }
+  
+  .closeButton:hover {
+    color: #ccc;
+  }
+  
+  /* Optional: Fade in effect for error notification */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

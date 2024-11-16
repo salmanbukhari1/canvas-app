@@ -1,0 +1,25 @@
+/* Button.module.css */
+.button {
+    background-color: #007aff;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #0051cc;
+  }
+  
+  /* Variants */
+  .loginButton {
+    background-color: #4caf50; /* Green color for login button */
+  }
+  
+  .logoutButton {
+    background-color: #f44336; /* Red color for logout button */
+  }
+  
