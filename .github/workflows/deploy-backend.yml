@@ -30,6 +30,9 @@ jobs:
 
     - name: Set Firebase Functions Config
       run: firebase functions:config:set google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest" --project canvas-app-production
+      with:
+        project_id: canvas-app-production 
+        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
     - name: Deploy Functions
       working-directory: backend/functions
