@@ -29,7 +29,7 @@ jobs:
         export_default_credentials: true
 
     - name: Set Firebase Functions Config
-      run: firebase functions:config:set google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest"
+      run: firebase functions:config:set google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest" --project canvas-app-production
 
     - name: Deploy Functions
       working-directory: backend/functions
