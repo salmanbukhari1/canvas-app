@@ -3,7 +3,7 @@ name: Deploy Firebase Functions
 on:
   push:
     paths:
-      - 'backend/**' # Trigger this workflow only for changes in the backend directory
+      - 'backend/**'
 
 jobs:
   deploy:
@@ -30,7 +30,7 @@ jobs:
 
     - name: Authenticate Firebase CLI with Service Account
       run: |
-        echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} > service-account.json
+        printf "%s" "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > service-account.json
         export GOOGLE_APPLICATION_CREDENTIALS=$PWD/service-account.json
         firebase projects:list --project canvas-app-production
       env:
@@ -48,3 +48,6 @@ jobs:
         firebase deploy --only functions --project canvas-app-production
       env:
         GOOGLE_APPLICATION_CREDENTIALS: $PWD/service-account.json
+
+    - name: Clean up temporary files
+      run: rm service-account.json
