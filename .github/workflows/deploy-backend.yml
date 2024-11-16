@@ -32,7 +32,7 @@ jobs:
       run: cat $HOME/service-account.json
 
     - name: Adjust Permissions for Service Account File
-      run: chmod 600 $HOME/service-account.json
+      run: chmod 644 $HOME/service-account.json
 
     - name: Authenticate with Google Cloud
       run: gcloud auth activate-service-account --key-file=$HOME/service-account.json
