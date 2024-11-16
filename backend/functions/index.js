@@ -48,7 +48,7 @@ const getMultipleDrawings = async (req, res) => {
 
     return res.status(200).json(drawings);
   } catch (error) {
-    // console.error('Error fetching drawings:', error);
+    console.error('Error fetching drawings:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
