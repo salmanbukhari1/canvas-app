@@ -38,8 +38,14 @@ jobs:
       run: gcloud auth activate-service-account --key-file=$HOME/service-account.json
 
     - name: Set Firebase Functions Config
-      run: firebase functions:config:set google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest" --project canvas-app-production
+      run: |
+        export GOOGLE_APPLICATION_CREDENTIALS=$HOME/service-account.json
+        firebase functions:config:set \
+          google.application_credentials="projects/canvas-app-production/secrets/firebase-service-account-key/versions/latest" \
+          --project canvas-app-production
 
     - name: Deploy Functions
       working-directory: backend/functions
-      run: firebase deploy --only functions
+      run: |
+        export GOOGLE_APPLICATION_CREDENTIALS=$HOME/service-account.json
+        firebase deploy --only functions --project canvas-app-production
