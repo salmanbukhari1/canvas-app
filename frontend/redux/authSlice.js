@@ -19,7 +19,6 @@ const authSlice = createSlice({
             photoURL: firebaseUser.photoURL,
           }
         : null;
-      // state.user = action.payload;
     },
     clearUser: (state) => {
       state.user = null;
@@ -52,8 +51,9 @@ export const registerUserAsync = (email, password) => async dispatch => {
   try {
     const user = await registerUser(email, password); // Use the Firebase function
     dispatch(setUser(user));
+    dispatch(setError(null));
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setError(error));
   } finally {
     dispatch(setLoading(false));
   }
