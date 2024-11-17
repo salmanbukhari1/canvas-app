@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
+import Button from '../components/Controls/Button';
 import { setDrawings } from '../redux/drawingsSlice';
 import { getMultipleUserDrawings } from '../lib/api';
 import DrawingsList from '../components/Lists/DrawingsList';
@@ -7,6 +9,7 @@ import ErrorNotification from '../components/Notifiers/ErrorNotification';
 
 export default function Home({drawings, error}) { 
     const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         if (drawings) {
@@ -14,8 +17,17 @@ export default function Home({drawings, error}) {
         }
     }, [dispatch, drawings]);
 
+    const handleCreateNewDrwaing = () => {
+        router.push('/draw');
+    };
+
     return (
         <>  
+            <span className={"inline mb-30"}>
+                <Button onClick={handleCreateNewDrwaing} variant={"secondaryButton"}>
+                    Create New
+                </Button>
+            </span>
             <DrawingsList />
             {error && <ErrorNotification message={error} />}
         </>
