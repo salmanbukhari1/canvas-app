@@ -77,7 +77,7 @@ export const loginUserAsync = (email, password) => async dispatch => {
     dispatch(setUser(user));
     dispatch(setError(null));
   } catch (error) {
-    dispatch(setError(error.message));
+    dispatch(setError(error));
   } finally {
     dispatch(setLoading(false));
   }
