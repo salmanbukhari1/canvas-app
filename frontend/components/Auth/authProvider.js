@@ -1,6 +1,6 @@
 // components/Auth/authProvider.js
 import { useEffect } from "react";
-import { auth } from "../../lib/firebase";
+import { auth } from "../../lib/firebaseApp";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { setUser, clearUser } from '../../redux/authSlice';

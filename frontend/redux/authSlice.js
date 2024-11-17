@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, loginUser, logoutUser } from '../lib/firebase'; // Import only the Firebase functions
+import { registerUser, loginUser, logoutUser } from '../lib/authService';
 
 const authSlice = createSlice({
   name: 'auth',
