@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Button from '../components/Controls/Button';
+import Loading from '../components/Notifiers/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDrawing, saveUserDrawing } from '../lib/api';
 import { addShape, updateShape, setShapes } from '../redux/canvasSlice';
@@ -16,6 +17,7 @@ export default function Draw({ drawing, token, error }) {
   console.log("token_thend:", token)
   const dispatch = useDispatch();
   const [errorState, setError]=useState(error);
+  const [saving, setSaving]=useState(false);
   const shapes = useSelector(state => state.canvas.shapes);
 
   const handleAddShape = (newShape) => {
@@ -28,11 +30,16 @@ export default function Draw({ drawing, token, error }) {
 
   const handleSave = async () => {
     console.log("token_then:", token)
+    setSaving(true);
 
     try {
       await saveUserDrawing(token, shapes, drawing?.id);
+      
     } catch (error) {
       setError(errorState);
+      
+    } finally {
+      setSaving(false);
     }
   };
   
@@ -44,13 +51,14 @@ export default function Draw({ drawing, token, error }) {
 
   return (
     <>  
-      <Button onClick={handleSave} >Save</Button>
+      <Button onClick={handleSave} variant={"secondaryButton"}>Save</Button>
       <Canvas 
         shapes={shapes}  // Pass shapes as a prop
         onAddShape={handleAddShape}
         onUpdateShape={handleUpdateShape}
       />
-      {error && <ErrorNotification message={error} />}
+      {errorState && <ErrorNotification message={errorState} />}
+      {saving && <Loading message={"Saving..."} />}
     </>
   );
 };
