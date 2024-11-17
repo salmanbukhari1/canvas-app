@@ -1,7 +1,8 @@
 
 # Project Name
 
-This repository contains a web application built with Next.js for the frontend and Google Cloud Functions for the backend. It is designed for local development using Docker for streamlined setup and environment isolation.
+This repository contains a web application built with Next.js for the frontend and Google Cloud Functions for the backend. It is a cloud based canvas app that allows 
+you to make and save drawings on a canvas
 
 ---
 
