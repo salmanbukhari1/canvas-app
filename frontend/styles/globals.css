@@ -6,9 +6,64 @@
   box-sizing: border-box;
 }
 
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   background-color: #f9f9f9;
   color: #333;
 }
+
+/* General styling for input fields */
+input {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px; /* Default font size */
+  padding: 10px 15px; /* Padding inside the input field */
+  margin: 8px 0; /* Spacing around the input field */
+  border: 1px solid #d1d1d6; /* Light border color */
+  border-radius: 10px; /* Rounded corners */
+  background-color: #f7f7f8; /* Light background color */
+  color: #333; /* Text color */
+  transition: all 0.3s ease; /* Smooth transition for focus effect */
+  box-sizing: border-box; /* Make sure padding and border are inside the box size */
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Input field when focused */
+input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #007aff; /* iOS-like blue border on focus */
+  background-color: #ffffff; /* Change background to white when focused */
+  box-shadow: 0 0 5px rgba(0, 122, 255, 0.3); /* Subtle blue shadow */
+}
+
+/* Placeholder text styling */
+input::placeholder {
+  color: #a0a0a5; /* Light gray placeholder text */
+  font-style: italic; /* Slightly italic placeholder text */
+}
+
+/* For disabled inputs */
+input:disabled {
+  background-color: #e1e1e6; /* Lighter gray background for disabled inputs */
+  border-color: #d1d1d6; /* Lighter border for disabled inputs */
+  color: #a0a0a5; /* Lighter text for disabled inputs */
+  cursor: not-allowed; /* Change cursor to show disabled state */
+}
+
+.med-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.mr-10 { 
+  margin-right: 10px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+

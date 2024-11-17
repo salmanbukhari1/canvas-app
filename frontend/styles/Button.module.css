@@ -8,6 +8,7 @@
     border: none;
     box-shadow: 0 4px 10px rgba(0, 122, 255, 0.2);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
+    cursor:pointer;
   }
   
   .button:hover {
@@ -21,5 +22,18 @@
   
   .logoutButton {
     background-color: #f44336; /* Red color for logout button */
+  }
+
+
+  .secondaryButton {
+    background-color: transparent;
+    box-shadow: 0 4px 10px rgb(201 201 201 / 20%);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    color: #333;
+    border: 1px solid #d0d0d0;
+  }
+
+  .secondaryButton:hover{
+    background-color: #f1eded;
   }
   

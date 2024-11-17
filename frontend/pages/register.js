@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import Button from '../components/Controls/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAsync } from '../redux/authSlice';
+
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +16,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div className={"med-container"}>
       <h2>Register</h2>
       <input
         type="email"
@@ -28,11 +30,10 @@ const Register = () => {
         onChange={e => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button onClick={handleRegister} disabled={loading}>
+      <Button onClick={handleRegister} disabled={loading}>
         Register
-      </button>
-      {error && <p>{error}</p>}
-    </>
+      </Button>
+    </div>
   );
 };
 

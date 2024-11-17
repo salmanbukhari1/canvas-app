@@ -1,40 +1,37 @@
-import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Controls/Button';
-import Loading from '../components/Notifiers/Loading';
 import { loginUserAsync } from '../redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../components/Notifiers/Loading';
 import ErrorNotification from '../components/Notifiers/ErrorNotification';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [waiting, setWaiting] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const error = useSelector(state => state.auth.error);
   const router = useRouter();
 
-  const handleLogin = async () => {
+  useEffect(() => {
 
-    setWaiting(true);
-    
-    await dispatch(loginUserAsync(email, password));
-    
-    // user has logged in, move to dashboard 
     if (!loading && !error) {
-      router.push('/');
+      router.push('/');  // User logged in, navigate to dashboard
     }
-    
-    setWaiting(false);
+
+  }, [error, loading]);  
+
+  const handleLogin = () => {
+    dispatch(loginUserAsync(email, password));
   };
 
-  if (waiting) {
+  if (loading) {
     return <Loading></Loading>
   }
 
   return (
-    <>
+    <div className={"med-container"}>
       <h2>Login</h2>
       <input
         type="email"
@@ -48,11 +45,11 @@ const Login = () => {
         onChange={e => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <Button onClick={handleLogin} disabled={loading}>
+      <Button onClick={handleLogin}  disabled={loading}>
         Login
       </Button>
       {error && <ErrorNotification message={error} />}
-    </>
+    </div>
   );
 };
 

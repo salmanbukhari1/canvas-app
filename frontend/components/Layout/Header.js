@@ -21,6 +21,10 @@ const Header = () => {
     router.push('/login');
   };
 
+  const handleRegister = () => {
+    router.push('/register');
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo} onClick={() => router.push('/')}>
@@ -32,9 +36,16 @@ const Header = () => {
             Logout
           </Button>
         ) : (
-          <Button onClick={handleLogin} disabled={!loading}>
-            Login
-          </Button>
+          <>
+            <span className="inline mr-10">
+              <Button onClick={handleLogin} variant={"secondaryButton"} disabled={!loading}>
+                Login
+              </Button>
+            </span>
+            <Button onClick={handleRegister} disabled={!loading}>
+              Register
+            </Button>
+          </>
         )}
       </nav>
     </header>
