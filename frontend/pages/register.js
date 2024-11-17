@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Controls/Button';
+import Loading from '../components/Notifiers/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAsync } from '../redux/authSlice';
-
+import ErrorNotification from '../components/Notifiers/ErrorNotification';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,16 @@ const Register = () => {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
   const error = useSelector(state => state.auth.error);
+  const user = useSelector(state => state.auth.user);
+  const router = useRouter();
+
+  useEffect(() => {
+
+    if (user) {
+      router.push('/');  // User logged in, navigate to dashboard
+    }
+
+  }, [error, loading]);
 
   const handleRegister = () => {
     dispatch(registerUserAsync(email, password));
@@ -33,6 +45,8 @@ const Register = () => {
       <Button onClick={handleRegister} disabled={loading}>
         Register
       </Button>
+      {error && <ErrorNotification message={error} />}
+      {loading && <Loading />}
     </div>
   );
 };

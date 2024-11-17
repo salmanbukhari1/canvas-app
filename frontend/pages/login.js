@@ -10,25 +10,22 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
   const loading = useSelector(state => state.auth.loading);
   const error = useSelector(state => state.auth.error);
   const router = useRouter();
 
   useEffect(() => {
 
-    if (!loading && !error) {
+    if (user) {
       router.push('/');  // User logged in, navigate to dashboard
     }
 
-  }, [error, loading]);  
+  }, [user]);
 
   const handleLogin = () => {
     dispatch(loginUserAsync(email, password));
   };
-
-  if (loading) {
-    return <Loading></Loading>
-  }
 
   return (
     <div className={"med-container"}>
@@ -49,6 +46,7 @@ const Login = () => {
         Login
       </Button>
       {error && <ErrorNotification message={error} />}
+      {loading && <Loading />}
     </div>
   );
 };
