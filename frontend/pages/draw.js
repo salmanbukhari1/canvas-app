@@ -15,11 +15,12 @@ const Canvas = dynamic(() => import('../components/Canvas/Canvas'), {
 export default function Draw({ drawing, token, error }) {
 
   console.log("token_thend:", token)
+  console.log("drawing:", drawing)
   const dispatch = useDispatch();
   const [errorState, setError]=useState(error);
   const [saving, setSaving]=useState(false);
   const shapes = useSelector(state => state.canvas.shapes);
-
+  
   const handleAddShape = (newShape) => {
     dispatch(addShape(newShape));
   };
@@ -44,9 +45,13 @@ export default function Draw({ drawing, token, error }) {
   };
   
   useEffect(() => {
-      if (drawing) {
-        dispatch(setShapes(drawing.shapes));
-      }
+
+    if (drawing) {
+      dispatch(setShapes(drawing.shapes));
+    } else {
+      dispatch(setShapes([]));
+    }
+
   }, [dispatch, drawing]);
 
   return (
