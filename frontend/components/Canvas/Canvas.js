@@ -49,8 +49,9 @@ function Canvas({ shapes, onAddShape, onDeleteShape, onUpdateShape }) {
   // Handle deletion of shapes
   const handleDeleteShape = () => {
     if (selectedShape) {
-      onDeleteShape(selectedShape.id);
-      setSelectedShape(null); // Clear selection after deletion
+      //TODO::incomplete - implement in future
+      // onDeleteShape(selectedShape.id);
+      // setSelectedShape(null); // Clear selection after deletion
     }
   };
 
