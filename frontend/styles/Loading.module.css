@@ -1,11 +1,9 @@
 /* components/Loading.module.css */ 
 
 .loadingContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     text-align: center;
   }
   
