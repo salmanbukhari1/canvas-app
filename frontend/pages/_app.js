@@ -2,9 +2,9 @@
 import '../styles/globals.css';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
-import Header from '../components/Layout/header';
+import Header from '../components/Layout/Header';
 import AuthProvider from '../components/Auth/authProvider';
-import Container from '../components/Layout/container';
+import Container from '../components/Layout/Container';
 
 function MyApp({ Component, pageProps }) {
 
