@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUserAsync } from '../redux/authSlice';
 import AuthForm from '../components/Forms/AuthForm';
+import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn'; // Import the custom hook
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -13,11 +14,7 @@ const Register = () => {
   const user = useSelector(state => state.auth.user);
   const router = useRouter();
 
-  useEffect(() => {
-    if (user) {
-      router.push('/'); // Redirect if user is registered
-    }
-  }, [user]);
+  useRedirectIfLoggedIn();
 
   const handleRegister = () => {
     dispatch(registerUserAsync(email, password));

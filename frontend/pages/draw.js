@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Button from '../components/Controls/Button';
 import Loading from '../components/Notifiers/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserDrawing, saveUserDrawing } from '../lib/api';
+import { getUserDrawing, saveUserDrawing } from '../services/drawingService';
 import { addShape, updateShape, setShapes } from '../redux/canvasSlice';
 import ErrorNotification from '../components/Notifiers/ErrorNotification';
 
@@ -12,10 +12,8 @@ const Canvas = dynamic(() => import('../components/Canvas/Canvas'), {
     ssr: false,
 });
 
-export default function Draw({ drawing, token, error }) {
+export default function Draw({ drawing, error }) {
 
-  console.log("token_thend:", token)
-  console.log("drawing:", drawing)
   const dispatch = useDispatch();
   const [errorState, setError]=useState(error);
   const [saving, setSaving]=useState(false);
@@ -30,13 +28,14 @@ export default function Draw({ drawing, token, error }) {
   };
 
   const handleSave = async () => {
-    console.log("token_then:", token)
     setSaving(true);
 
     try {
-      await saveUserDrawing(token, shapes, drawing?.id);
+      // save the shapes for the current drawing
+      await saveUserDrawing(shapes, drawing?.id);
       
     } catch (error) {
+      //set error state
       setError(errorState);
       
     } finally {
@@ -72,23 +71,24 @@ export default function Draw({ drawing, token, error }) {
 export async function getServerSideProps(context) {
   
   const { req } = context;
-  const token = req.cookies.token; // The Firebase ID token should be passed in cookies
   const { drawingId } = context.query; // Get the drawingId from the URL params
+  
   let error=null;
   let drawing = null;
 
   if (drawingId) {
     try {
-      drawing = await getUserDrawing(token, drawingId)
+      // try and get the user drawing
+      drawing = await getUserDrawing(req, drawingId)
     } catch (error) {
+      // if something goes wrong
       error=error;
     }
   }
 
   return {
     props: {
-      drawing,
-      token, 
+      drawing, 
       error
     },
   };

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUserAsync } from '../redux/authSlice';
 import AuthForm from '../components/Forms/AuthForm';
+import useRedirectIfLoggedIn from '../hooks/useRedirectIfLoggedIn'; // Import the custom hook
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,11 +14,7 @@ const Login = () => {
   const error = useSelector(state => state.auth.error);
   const router = useRouter();
 
-  useEffect(() => {
-    if (user) {
-      router.push('/'); // Redirect if user is logged in
-    }
-  }, [user]);
+  useRedirectIfLoggedIn();
 
   const handleLogin = () => {
     dispatch(loginUserAsync(email, password));

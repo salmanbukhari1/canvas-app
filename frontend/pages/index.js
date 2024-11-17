@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import Button from '../components/Controls/Button';
 import { setDrawings } from '../redux/drawingsSlice';
-import { getMultipleUserDrawings } from '../lib/api';
+import { getMultipleUserDrawings } from '../services/drawingService';
 import DrawingsList from '../components/Lists/DrawingsList';
 import ErrorNotification from '../components/Notifiers/ErrorNotification';
 
@@ -38,21 +38,11 @@ export default function Home({drawings, error}) {
 export async function getServerSideProps(context) {
 
     const { req } = context;
-    const token = req.cookies.token; // The Firebase ID token should be passed in cookies
     let error=null;
     let drawings=null;
-
-    if (!token) {
-        return {
-          redirect: {
-            destination: '/login', // Redirect to login if token is missing
-            permanent: false,
-          },
-        };
-    }
     
     try {
-        drawings = await getMultipleUserDrawings(token);   
+        drawings = await getMultipleUserDrawings(req);   
     } catch (error) {
         error=error;
     }
