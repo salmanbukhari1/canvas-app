@@ -68,5 +68,5 @@ Desktop.ini
 .env*
 
 # Any sensitive keys etc
-keys/
+*Key*
 
